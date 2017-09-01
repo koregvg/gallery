@@ -1,21 +1,32 @@
 <template>
     <section class="header-nav">
-        <div class="header-nav-in">
-            <ul class="main">
-                <li @click="choose('index')" :class="{'light-up': choosed === 1}">Work</li>
-                <li @click="choose('about')" :class="{'light-up': choosed === 2}">About</li>
-                <li @click="choose('joinus')" :class="{'light-up': choosed === 3}">Join us</li>
-            </ul>
-            <transition name="fade">
-                <ul class="work-sublist" v-show="choosed === 1">
-                    <li @mouseenter="enter($event)" @mouseleave="leave($event)" v-for="(value, key, index) in sublist">
-                        <div class="en" :class="{'light-up':dataSubChoosed == index+1}"
-                             @click="subSelect(key.toLowerCase(),index+1)">{{key}}
-                        </div>
-                        <div class="cn" @click="subSelect(key.toLowerCase(),index+1)">{{value}}</div>
-                    </li>
+        <div class="header-nav-in" :class="type">
+            <div v-if="type === 'large' || type === 'middle'">
+                <ul class="main">
+                    <li @click="choose('index')" :class="{'light-up': choosed === 1}">Work</li>
+                    <li @click="choose('about')" :class="{'light-up': choosed === 2}">About</li>
+                    <li @click="choose('joinus')" :class="{'light-up': choosed === 3}">Join us</li>
                 </ul>
-            </transition>
+                <transition name="fade">
+                    <ul class="work-sublist" v-show="choosed === 1">
+                        <li @mouseenter="enter($event)" @mouseleave="leave($event)"
+                            v-for="(value, key, index) in sublist">
+                            <div class="en" :class="{'light-up':dataSubChoosed == index+1}"
+                                 @click="subSelect(key.toLowerCase(),index+1)">{{key}}
+                            </div>
+                            <div class="cn" @click="subSelect(key.toLowerCase(),index+1)">{{value}}</div>
+                        </li>
+                    </ul>
+                </transition>
+            </div>
+            <div v-if="type === 'small'">
+                <div class="header-title">FIFTYSTUDIO</div>
+                <ul class="main">
+                    <li @click="choose('index')" :class="{'light-up': choosed === 1}">Work</li>
+                    <li @click="choose('about')" :class="{'light-up': choosed === 2}">About</li>
+                    <li @click="choose('joinus')" :class="{'light-up': choosed === 3}">Join us</li>
+                </ul>
+            </div>
         </div>
     </section>
 </template>
@@ -26,6 +37,11 @@
     export default {
         name: 'header-nav',
         props: {
+            type: {
+                type: String,
+                required: false,
+                default: 'large'
+            },
             lightNum: {
                 type: Number,
                 required: false,
@@ -115,78 +131,158 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" rel="stylesheet/less" scoped>
     .header-nav {
-        z-index: 2;
-        position: fixed;
-        background-color: black;
-        width: 100%;
-        height: 130px;
         .header-nav-in {
-            padding: 30px 30px 10px 30px;
-            ul.main {
+            z-index: 2;
+            position: fixed;
+            background-color: black;
+            width: 100%;
+            &.large,&.middle {
+                height: 100px;
+                z-index: 2;
+                position: fixed;
+                background-color: black;
                 width: 100%;
-                height: 48px;
-                li {
-                    height: 100%;
-                    line-height: 48px;
-                    display: block;
-                    float: left;
-                    color: #808080;
-                    margin-right: 20px;
-                    font-family: Neosans;
-                    font-size: 36px;
-                    &:hover {
-                        color: #fff;
-                        cursor: pointer;
+                padding: 30px 30px 0 30px;
+                ul.main {
+                    width: 100%;
+                    height: 48px;
+                    li {
+                        height: 100%;
+                        line-height: 48px;
+                        display: block;
+                        float: left;
+                        color: #808080;
+                        margin-right: 20px;
+                        font-family: Neosans;
+                        font-size: 36px;
+                        &:hover {
+                            color: #fff;
+                            cursor: pointer;
+                        }
+                        &.light-up {
+                            color: #fff;
+                        }
                     }
-                    &.light-up {
-                        color: #fff;
+                }
+                ul.work-sublist {
+                    width: 100%;
+                    height: 48px;
+                    li {
+                        top: -2px;
+                        cursor: pointer;
+                        position: relative;
+                        text-align: center;
+                        height: 100%;
+                        line-height: 48px;
+                        display: inline-block;
+                        float: left;
+                        color: #808080;;
+                        margin-right: 35px;
+                        font-size: 22px;
+                        .light-up {
+                            color: #fff;
+                        }
+                        div {
+                            position: absolute;
+                            width: 100%;
+                            &.en {
+                                font-family: Neosans;
+                            }
+                            &.cn {
+                                font-family: SourceHanSansCN-Regular;
+                                color: #fff;
+                                display: none;
+                            }
+                        }
+                        &:nth-child(1) {
+                            width: 50px;
+                        }
+                        &:nth-child(2) {
+                            width: 160px;
+                        }
+                        &:nth-child(3) {
+                            width: 30px;
+                        }
+                        &:nth-child(4) {
+                            width: 120px;
+                        }
+                        &:nth-child(5) {
+                            width: 100px;
+                        }
                     }
                 }
             }
-            ul.work-sublist {
-                width: 100%;
-                height: 48px;
-                li {
-                    top: -2px;
-                    cursor: pointer;
-                    position: relative;
+            &.small {
+                padding: 35px 40px 35px 40px;
+                .title {
                     text-align: center;
-                    height: 100%;
-                    line-height: 48px;
-                    display: inline-block;
-                    float: left;
-                    color: #808080;;
-                    margin-right: 35px;
-                    font-size: 22px;
-                    .light-up {
-                        color: #fff;
-                    }
-                    div {
-                        position: absolute;
-                        width: 100%;
-                        &.en {
-                            font-family: Neosans;
-                        }
-                        &.cn {
-                            font-family: SourceHanSansCN-Regular;
+                }
+                ul.main {
+                    width: 100%;
+                    height: 48px;
+                    li {
+                        height: 100%;
+                        line-height: 48px;
+                        display: block;
+                        float: left;
+                        color: #808080;
+                        margin-right: 20px;
+                        font-family: Neosans;
+                        font-size: 36px;
+                        &:hover {
                             color: #fff;
-                            display: none;
+                            cursor: pointer;
+                        }
+                        &.light-up {
+                            color: #fff;
                         }
                     }
-                    &:nth-child(1) {
-                        width: 50px;
-                    }
-                    &:nth-child(2) {
-                        width: 160px;
-                    }
-                    &:nth-child(3) {
-                        width: 30px;
-                    }
-                    &:nth-child(4) {
-                        width: 120px;
-                    }
-                    &:nth-child(5) {
-                        width: 100px;
+                }
+                ul.work-sublist {
+                    width: 100%;
+                    height: 48px;
+                    li {
+                        top: -2px;
+                        cursor: pointer;
+                        position: relative;
+                        text-align: center;
+                        height: 100%;
+                        line-height: 48px;
+                        display: inline-block;
+                        float: left;
+                        color: #808080;;
+                        margin-right: 35px;
+                        font-size: 22px;
+                        .light-up {
+                            color: #fff;
+                        }
+                        div {
+                            position: absolute;
+                            width: 100%;
+                            &.en {
+                                font-family: Neosans;
+                            }
+                            &.cn {
+                                font-family: SourceHanSansCN-Regular;
+                                color: #fff;
+                                display: none;
+                            }
+                        }
+                        &:nth-child(1) {
+                            width: 50px;
+                        }
+                        &:nth-child(2) {
+                            width: 160px;
+                        }
+                        &:nth-child(3) {
+                            width: 30px;
+                        }
+                        &:nth-child(4) {
+                            width: 120px;
+                        }
+                        &:nth-child(5) {
+                            width: 100px;
+                        }
                     }
                 }
             }
