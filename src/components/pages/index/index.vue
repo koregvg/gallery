@@ -1,6 +1,7 @@
 <template>
     <section class="page-index" v-if="showPage">
         <header-nav
+                :type="type"
                 @selectChange="selectChange"
         >
         </header-nav>
@@ -115,7 +116,7 @@
                     this.type = 'large'
                 } else if (750 < $(window).width() && $(window).width() < 1020) {
                     this.type = 'middle'
-                } else if ($(window).width() <= 750) {
+                } else if ($(window).width() < 750) {
                     this.type = 'small'
                 }
             },
