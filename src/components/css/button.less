@@ -1,0 +1,152 @@
+// TODO margin还需要确定值。
+// 现在是统一给所有按钮都加margin-left: 10px;margin-right: 10px;
+// TODO 
+// 颜色值待确定
+@import './variable.less';
+@name-button: ~`'@{prefix}ui-button'`;
+// 大小相关
+.size(@width: 100%, @height: 50px, @font-size: @font-size-18 ) {
+    width: @width;
+    height: @height;
+    font-size: @font-size;
+    line-height: @height;
+}
+
+// 主题相关
+.theme(@color: @white-color, @background: @main-color-primary ) {
+    color: @color;
+    background: @background;
+}
+// 内容自适应
+.auto(@padding: 66px) {
+    &.auto {
+        display: inline-block;
+        width: auto;
+        padding: 0 @padding;
+    }
+}
+input[type="button"],input[type="submit"],button{
+    outline: 0;
+    &.@{name-button}{
+        &.full{
+            display: inline-block;
+            width:100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+}
+.@{name-button}{
+    // common
+    display: block;
+    text-align: center;
+    border-radius: @border-radius-small;
+    margin-left: @spacing-3x;
+    margin-right: @spacing-3x;
+    font-weight: 300;
+    // theme
+    .default() {
+        .theme(@white-color, @main-color-primary);
+        &:active {
+            background: #5480cc;
+        }
+        &[disabled] {
+            background: @form-color-info;
+        }
+    }
+    .default();
+    &.default {
+        .default();
+    }
+    // 带边框的
+    &.primary {
+
+        .theme(@main-color-primary, transparent);
+        border: 1px solid @main-color-primary;
+        box-sizing: border-box;
+        &:active {
+            background: @form-color-primary;
+        }
+        &[disabled] {
+            // TODO: background颜色不确定
+            color: @form-color-info;
+            border-color: @form-color-info;
+
+            &:active {
+                background: transparent;
+            }
+        }
+        &.full{
+            line-height: 48px;
+        }
+        &.large{
+            line-height: 38px;
+        }
+        &.medium{
+            line-height: 58px;
+        }
+        &.small{
+            line-height: 38px;
+        }
+        &.x-small{
+            line-height: 28px;
+        }
+    }
+    &.info {
+        .theme(@main-color-primary, #f4f9ff);
+        &:active {
+            background: @form-color-primary
+        }
+        &[disabled] {
+            background: @form-color-info;
+            color: @white-color
+        }
+    }
+    // 红色
+    &.danger {
+        .theme(@white-color, @main-color-danger);
+        &:active {
+            background: #d84443;
+        }
+        &[disabled] {
+            background: @form-color-danger;
+        }
+    }
+
+    // size
+    &.full {
+        .size(auto, 50px, @font-size-18);
+    }
+    &.large {
+        .size(260px, 40px, @font-size-16);
+        .auto(114px);
+    }
+    &.medium {
+        .size(188px, 60px, @font-size-18);
+        .auto(66px);
+    }
+    &.small {
+        .size(100px, 40px, @font-size-16);
+        .auto(26px);
+    }
+    &.x-small {
+        .size(80px, 30px, @font-size-12);
+        .auto(10px);
+    }
+    // 特殊：和input输入框结合的button
+    &.control-button {
+        height: 30px;
+        padding-left: 16px;
+        padding-right: 16px;
+        // TODO:还有padding10px的；需要和ue核对
+        &.plr-10 {
+            padding-left: @spacing-2x;
+            padding-right: @spacing-2x;
+        }
+        border: 1px solid @main-color-primary;
+        border-radius: @border-radius-small;
+        font-size: @font-size-12;
+        color: @main-color-primary;
+        line-height: 28px;
+    }
+}

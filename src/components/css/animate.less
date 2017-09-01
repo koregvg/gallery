@@ -1,0 +1,122 @@
+// ----分类索引----
+// -- vue animation动画: 为vue提供动画支持
+// -- vue transition动画: 为vue提供过渡支持
+// -- animation动画类: 常用animation动画类
+
+@import './variable.less';
+
+//  [vue animation动画]
+
+//== fade
+//
+//## 渐显或渐出（1 <=> 0）
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.fade-enter {
+    animation: fade-in .35s ease-in-out 0s 1 normal;
+}
+.fade-leave {
+    animation: fade-out .35s ease-in-out 0s 1 normal;
+}
+
+//== pop
+//
+//## 缩放（1 <=> .8）、并渐显或渐隐（1 <=> 0）
+@keyframes pop-in {
+    0% {
+        opacity: 0;
+        transform: scale3d(.8, .8, .8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
+}
+@keyframes pop-out {
+    0% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale3d(.8, .8, .8);
+    }
+}
+.pop-transition {
+    display: inline-block;
+}
+.pop-enter {
+    animation: pop-in .35s ease-in-out 0s 1 normal;
+}
+.pop-leave {
+    animation: pop-out .35s ease-in-out 0s 1 normal;
+}
+
+//----------------------------
+
+//  [vue transition动画]
+
+//== zoom
+//
+//## 缩放（1 <=> .95）、并渐显或者渐隐（1 <=> 0）
+.zoom-transition {
+    transition: all .4s ease;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.zoom-enter,
+.zoom-leave {
+    opacity: 0;
+    transform: scale(.95);
+}
+
+//== zoom-center
+//
+//## 缩放（1 <=> .95）、并渐显或者渐隐（1 <=> 0）、位移（-50%, -50%）
+.zoom-center-transition {
+    transition: all .4s ease;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.zoom-center-enter,
+.zoom-center-leave {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.95);
+}
+
+//----------------------------
+
+//  [animation动画类]
+
+//== loading
+//
+//## 无限旋转（0deg <=> 360deg）
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.loading {
+    animation: loading 1.4s linear 0s infinite normal;
+}
+
+//----------------------------

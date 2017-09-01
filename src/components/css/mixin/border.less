@@ -1,0 +1,11 @@
+.border-left-radius(@top-left: 0, @bottom-left: 0) {
+    border-top-left-radius: @top-left;
+    border-bottom-left-radius: @bottom-left;
+}
+.border-right-radius(@top-right: 0, @bottom-right: 0) {
+    border-top-right-radius: @top-right;
+    border-bottom-right-radius: @bottom-right;
+}
+.circle() {
+    border-radius: 9999px; // 足够大的圆角半径，兼容 Android 2.3
+}
