@@ -8,11 +8,11 @@ import $ from 'jquery'
 import easing from 'jquery.easing'
 
 // 移动端调试器 注意在上线发布时关闭
-import eruda from 'eruda'
+// import eruda from 'eruda'
 
 flexible(window, window['lib'] || (window['lib'] = {}));
 
-eruda.init();
+// eruda.init();
 
 Vue.config.productionTip = false;
 

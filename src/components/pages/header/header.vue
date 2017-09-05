@@ -34,7 +34,7 @@
             subChoosed: {
                 type: Number,
                 required: false,
-                default: 0
+                default: 1
             }
         },
         data () {
@@ -90,24 +90,7 @@
 
         },
         mounted() {
-            let subMap = {
-                'all': 1,
-                'motiongraphic': 2,
-                'h5': 3,
-                'advertising': 4,
-                'shooting': 5
-            };
-            let from = this.$route.query.from || '';
-            if (this.$route.path === '/index' && from) {
-                this.choosed = 1;
-                this.showList = true;
-            }
-            let to = this.$route.query.to || '';
-            if (this.$route.path === '/index' && to) {
-                this.dataSubChoosed = subMap[to];
-                this.showList = true;
-                this.$emit('selectChange', to);
-            }
+
         }
     }
 </script>

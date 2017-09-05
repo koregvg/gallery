@@ -2,6 +2,7 @@
     <section class="page-index" v-if="showPage">
         <header-nav
                 @selectChange="selectChange"
+                :light-num="1"
         >
         </header-nav>
         <div class="container">
@@ -113,7 +114,7 @@
             whichSize() {
                 if (1020 < $(window).width()) {
                     this.type = 'large'
-                } else if (750 < $(window).width() < 1020) {
+                } else if (750 < $(window).width() && $(window).width() < 1020) {
                     this.type = 'middle'
                 } else if ($(window).width() <= 750) {
                     this.type = 'small'
