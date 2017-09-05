@@ -12,7 +12,7 @@ import eruda from 'eruda'
 
 flexible(window, window['lib'] || (window['lib'] = {}));
 
-eruda.init();
+//eruda.init();
 
 Vue.config.productionTip = false;
 

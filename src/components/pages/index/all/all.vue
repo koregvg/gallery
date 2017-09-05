@@ -1,6 +1,6 @@
 <template>
     <section class="page-all">
-        <div class="all all-large" v-show="type === 'large'">
+        <div class="all all-large animate" v-show="type === 'large'">
             <div class="img-group">
                 <div class="img-item"
                      data-type="all"
@@ -20,7 +20,7 @@
                 查看全部作品
             </div>
         </div>
-        <div class="all all-middle" v-show="type === 'middle'">
+        <div class="all all-middle animate" v-show="type === 'middle'">
             <div class="img-group">
                 <div class="img-item"
                      data-type="all"
@@ -36,6 +36,21 @@
                 </div>
             </div>
             <div class="view-more" @click="viewMore('middle')" v-if="!showAll">
+                <i class="arrow"></i>
+                查看全部作品
+            </div>
+        </div>
+        <div class="all all-small" v-show="type === 'small'">
+            <div class="img-group">
+                <div class="img-item"
+                     data-type="all"
+                     v-show="showImg('middle', index) || showAll"
+                     v-for="(value, index) in imgArr"
+                     @click="goToDetail(value.gid)">
+                    <img :src="chooseImg(index)">
+                </div>
+            </div>
+            <div class="view-more" @click="viewMore('small')" v-if="!showAll">
                 <i class="arrow"></i>
                 查看全部作品
             </div>
@@ -71,7 +86,8 @@
                 },
                 maxItem: {
                     'large': 11,
-                    'middle': 11
+                    'middle': 11,
+                    'small': 11
                 },
                 showAll: false
             }
@@ -101,7 +117,7 @@
             }
         },
         mounted() {
-            $('.all .img-item').each(function (index, item) {
+            $('.all.animate .img-item').each(function (index, item) {
                 let $mask = $(this).find('.mask');
                 let $title = $(this).find('.title');
                 let $line = $(this).find('.line');
@@ -141,16 +157,16 @@
 <style lang="less" rel="stylesheet/less" scoped>
     .page-all {
         font-family: SourceHanSansCN-Regular;
-        .img-group {
-            margin: 0 auto;
-            overflow: hidden;
-            width: 1890px;
-            background-color: black;
-            &:hover {
-                cursor: pointer;
-            }
-        }
         .all-large {
+            .img-group {
+                margin: 0 auto;
+                overflow: hidden;
+                width: 1890px;
+                background-color: black;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
             .img-item {
                 position: relative;
                 display: block;
@@ -264,6 +280,15 @@
             }
         }
         .all-middle {
+            .img-group {
+                margin: 0 auto;
+                overflow: hidden;
+                width: 1890px;
+                background-color: black;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
             .img-item {
                 position: relative;
                 display: block;
@@ -374,9 +399,19 @@
                 }
             }
         }
+        .all-small {
+            .img-item {
+                position: relative;
+                display: block;
+                margin: 15px 40px 15px 40px;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
         .view-more {
             margin: 0 auto;
-            width: 1860px;
             overflow: hidden;
             padding-bottom: 55px;
             .arrow {

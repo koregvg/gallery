@@ -92,9 +92,6 @@
                     font-family: SourceHanSansCN-Regular;
                     font-size: 18px;
                     line-height: 1.8em;
-                    p {
-                        width: 1325px
-                    }
                 }
             }
             .recruit-block {
@@ -133,9 +130,6 @@
                     font-family: SourceHanSansCN-Regular;
                     font-size: 18px;
                     line-height: 1.8em;
-                    p {
-                        width: 1325px
-                    }
                     .fix-top {
                         margin-top: 25px;
                     }

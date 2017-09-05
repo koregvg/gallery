@@ -40,6 +40,21 @@
                 查看全部作品
             </div>
         </div>
+        <div class="mg mg-small" v-show="type === 'small'">
+            <div class="img-group">
+                <div class="img-item"
+                     data-type="all"
+                     v-show="showImg('middle', index) || showAll"
+                     v-for="(value, index) in imgArr"
+                     @click="goToDetail(value.gid)">
+                    <img :src="chooseImg(index)">
+                </div>
+            </div>
+            <div class="view-more" @click="viewMore('small')" v-if="!showAll">
+                <i class="arrow"></i>
+                查看全部作品
+            </div>
+        </div>
     </section>
 </template>
 
@@ -138,16 +153,16 @@
 <style lang="less" rel="stylesheet/less" scoped>
     .page-mg {
         font-family: SourceHanSansCN-Regular;
-        .img-group {
-            margin: 0 auto;
-            overflow: hidden;
-            width: 1890px;
-            background-color: black;
-            &:hover {
-                cursor: pointer;
-            }
-        }
         .mg-large {
+            .img-group {
+                margin: 0 auto;
+                overflow: hidden;
+                width: 1890px;
+                background-color: black;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
             .img-item {
                 position: relative;
                 display: block;
@@ -341,7 +356,21 @@
                 }
             }
         }
+        .mg-small {
+            .img-item {
+                position: relative;
+                display: block;
+                margin: 15px 40px 15px 40px;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
         .view-more {
+            margin: 0 auto;
+            overflow: hidden;
             padding-bottom: 55px;
             .arrow {
                 margin: 15px auto 30px auto;
