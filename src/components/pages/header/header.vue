@@ -2,30 +2,34 @@
     <section class="header-nav">
         <div class="header-nav-in" :class="type">
             <div v-if="type === 'large' || type === 'middle'">
-                <ul class="main">
-                    <li @click="choose('index')" :class="{'light-up': choosed === 1}">Work</li>
-                    <li @click="choose('about')" :class="{'light-up': choosed === 2}">About</li>
-                    <li @click="choose('joinus')" :class="{'light-up': choosed === 3}">Join us</li>
-                </ul>
-                <transition name="fade">
-                    <ul class="work-sublist" v-show="choosed === 1">
-                        <li @mouseenter="enter($event)" @mouseleave="leave($event)"
-                            v-for="(value, key, index) in sublist">
-                            <div class="en" :class="{'light-up':dataSubChoosed == index+1}"
-                                 @click="subSelect(key.toLowerCase(),index+1)">{{key}}
-                            </div>
-                            <div class="cn" @click="subSelect(key.toLowerCase(),index+1)">{{value}}</div>
-                        </li>
+                <div class="header-sub-container">
+                    <ul class="main">
+                        <li @click="choose('index')" :class="{'light-up': choosed === 1}">Work</li>
+                        <li @click="choose('about')" :class="{'light-up': choosed === 2}">About</li>
+                        <li @click="choose('joinus')" :class="{'light-up': choosed === 3}">Join us</li>
                     </ul>
-                </transition>
+                    <transition name="fade">
+                        <ul class="work-sublist" v-show="choosed === 1">
+                            <li @mouseenter="enter($event)" @mouseleave="leave($event)"
+                                v-for="(value, key, index) in sublist">
+                                <div class="en" :class="{'light-up':dataSubChoosed == index+1}"
+                                     @click="subSelect(key.toLowerCase(),index+1)">{{key}}
+                                </div>
+                                <div class="cn" @click="subSelect(key.toLowerCase(),index+1)">{{value}}</div>
+                            </li>
+                        </ul>
+                    </transition>
+                </div>
             </div>
             <div v-if="type === 'small'">
-                <div class="header-title">FIFTYSTUDIO</div>
-                <ul class="main">
-                    <li @click="choose('index')" :class="{'light-up': choosed === 1}">Work</li>
-                    <li @click="choose('about')" :class="{'light-up': choosed === 2}">About</li>
-                    <li @click="choose('joinus')" :class="{'light-up': choosed === 3}">Join us</li>
-                </ul>
+                <div class="header-sub-container">
+                    <div class="header-title">FIFTYSTUDIO</div>
+                    <ul class="main">
+                        <li @click="choose('index')" :class="{'light-up': choosed === 1}">Work</li>
+                        <li @click="choose('about')" :class="{'light-up': choosed === 2}">About</li>
+                        <li @click="choose('joinus')" :class="{'light-up': choosed === 3}">Join us</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
@@ -73,22 +77,26 @@
                 this.selected = key;
                 this.$emit('selectChange', key);
             },
-            choose(type) {
-                $(window).scrollTop(0);
-                if (type === 'index') {
+            choose(page) {
+                if (page === 'index') {
                     this.choosed = 1;
                     this.showList = true;
-                    type = 'all'
+                    page = 'all';
+                    if (this.type === 'small') {
+                        this.$emit('showMobileMenu', true);
+                        return true;
+                    }
+                    $(window).scrollTop(0);
                 }
-                else if (type === 'about') {
+                else if (page === 'about') {
                     this.choosed = 2;
                     this.showList = false;
                 }
-                else if (type === 'joinus') {
+                else if (page === 'joinus') {
                     this.choosed = 3;
                     this.showList = false;
                 }
-                this.$emit('selectChange', type);
+                this.$emit('selectChange', page);
             },
             enter(event) {
                 let $el = $(event.target);
@@ -114,157 +122,114 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" rel="stylesheet/less" scoped>
     .header-nav {
+        width: 100%;
         .header-nav-in {
             z-index: 2;
-            position: fixed;
             background-color: black;
-            width: 100%;
-            &.large,&.middle {
-                height: 100px;
-                z-index: 2;
-                position: fixed;
-                background-color: black;
+            &.large, &.middle {
                 width: 100%;
-                padding: 30px 30px 0 30px;
-                ul.main {
-                    width: 100%;
-                    height: 48px;
-                    li {
-                        height: 100%;
-                        line-height: 48px;
-                        display: block;
-                        float: left;
-                        color: #808080;
-                        margin-right: 20px;
-                        font-family: Neosans;
-                        font-size: 36px;
-                        &:hover {
-                            color: #fff;
-                            cursor: pointer;
-                        }
-                        &.light-up {
-                            color: #fff;
+                position: fixed;
+                .header-sub-container {
+                    height: 100px;
+                    padding: 30px 30px 0 30px;
+                    ul.main {
+                        width: 100%;
+                        height: 48px;
+                        li {
+                            height: 100%;
+                            line-height: 48px;
+                            display: block;
+                            float: left;
+                            color: #808080;
+                            margin-right: 20px;
+                            font-family: Neosans;
+                            font-size: 36px;
+                            &:hover {
+                                color: #fff;
+                                cursor: pointer;
+                            }
+                            &.light-up {
+                                color: #fff;
+                            }
                         }
                     }
-                }
-                ul.work-sublist {
-                    width: 100%;
-                    height: 48px;
-                    li {
-                        top: -2px;
-                        cursor: pointer;
-                        position: relative;
-                        text-align: center;
-                        height: 100%;
-                        line-height: 48px;
-                        display: inline-block;
-                        float: left;
-                        color: #808080;;
-                        margin-right: 35px;
-                        font-size: 22px;
-                        .light-up {
-                            color: #fff;
-                        }
-                        div {
-                            position: absolute;
-                            width: 100%;
-                            &.en {
-                                font-family: Neosans;
-                            }
-                            &.cn {
-                                font-family: SourceHanSansCN-Regular;
+                    ul.work-sublist {
+                        width: 100%;
+                        height: 48px;
+                        li {
+                            top: -2px;
+                            cursor: pointer;
+                            position: relative;
+                            text-align: center;
+                            height: 100%;
+                            line-height: 48px;
+                            display: inline-block;
+                            float: left;
+                            color: #808080;;
+                            margin-right: 35px;
+                            font-size: 22px;
+                            .light-up {
                                 color: #fff;
-                                display: none;
                             }
-                        }
-                        &:nth-child(1) {
-                            width: 50px;
-                        }
-                        &:nth-child(2) {
-                            width: 160px;
-                        }
-                        &:nth-child(3) {
-                            width: 30px;
-                        }
-                        &:nth-child(4) {
-                            width: 120px;
-                        }
-                        &:nth-child(5) {
-                            width: 100px;
+                            div {
+                                position: absolute;
+                                width: 100%;
+                                &.en {
+                                    font-family: Neosans;
+                                }
+                                &.cn {
+                                    font-family: SourceHanSansCN-Regular;
+                                    color: #fff;
+                                    display: none;
+                                }
+                            }
+                            &:nth-child(1) {
+                                width: 50px;
+                            }
+                            &:nth-child(2) {
+                                width: 160px;
+                            }
+                            &:nth-child(3) {
+                                width: 30px;
+                            }
+                            &:nth-child(4) {
+                                width: 120px;
+                            }
+                            &:nth-child(5) {
+                                width: 100px;
+                            }
                         }
                     }
                 }
             }
             &.small {
-                padding: 35px 40px 35px 40px;
-                .title {
-                    text-align: center;
-                }
-                ul.main {
-                    width: 100%;
-                    height: 48px;
-                    li {
-                        height: 100%;
-                        line-height: 48px;
-                        display: block;
-                        float: left;
-                        color: #808080;
-                        margin-right: 20px;
-                        font-family: Neosans;
-                        font-size: 36px;
-                        &:hover {
-                            color: #fff;
-                            cursor: pointer;
-                        }
-                        &.light-up {
-                            color: #fff;
-                        }
-                    }
-                }
-                ul.work-sublist {
-                    width: 100%;
-                    height: 48px;
-                    li {
-                        top: -2px;
-                        cursor: pointer;
-                        position: relative;
+                position: fixed;
+                width: 100%;
+                .header-sub-container {
+                    padding: 35px 40px 35px 40px;
+                    .header-title {
+                        color: #FFF;
                         text-align: center;
-                        height: 100%;
-                        line-height: 48px;
-                        display: inline-block;
-                        float: left;
-                        color: #808080;;
-                        margin-right: 35px;
-                        font-size: 22px;
-                        .light-up {
-                            color: #fff;
-                        }
-                        div {
-                            position: absolute;
-                            width: 100%;
-                            &.en {
-                                font-family: Neosans;
-                            }
-                            &.cn {
-                                font-family: SourceHanSansCN-Regular;
+                    }
+                    ul.main {
+                        margin-top: 35px;
+                        width: 100%;
+                        overflow: hidden;
+                        li {
+                            height: 100%;
+                            display: block;
+                            float: left;
+                            color: #808080;
+                            margin-right: 20px;
+                            font-family: Neosans;
+                            font-size: 36px;
+                            &:hover {
                                 color: #fff;
-                                display: none;
+                                cursor: pointer;
                             }
-                        }
-                        &:nth-child(1) {
-                            width: 50px;
-                        }
-                        &:nth-child(2) {
-                            width: 160px;
-                        }
-                        &:nth-child(3) {
-                            width: 30px;
-                        }
-                        &:nth-child(4) {
-                            width: 120px;
-                        }
-                        &:nth-child(5) {
-                            width: 100px;
+                            &.light-up {
+                                color: #fff;
+                            }
                         }
                     }
                 }

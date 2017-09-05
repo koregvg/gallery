@@ -1,11 +1,18 @@
 <template>
     <section class="page-index" v-if="showPage">
+        <slide-menu
+                @hideMenu="hideMenu"
+                @selectChange="selectChange"
+        >
+        </slide-menu>
+        <div class="overlay" @click="hideMenu"></div>
         <header-nav
                 :type="type"
                 @selectChange="selectChange"
+                @showMobileMenu="showMenu"
         >
         </header-nav>
-        <div class="container">
+        <div class="container" :class="type">
             <div v-show="selected === 'all' && !isShowContent">
                 <All
                         :type="type"
@@ -67,7 +74,10 @@
             >
             </my-content>
         </div>
-        <dev-footer v-show="showFooter()"></dev-footer>
+        <dev-footer v-show="showFooter()"
+                    :type="type"
+        >
+        </dev-footer>
     </section>
 </template>
 
@@ -75,6 +85,7 @@
 
     import axios from 'axios';
     import headerNav from '@/components/pages/header/header'
+    import slideMenu from '@/components/pages/slide-menu/slide-menu'
     import All from '@/components/pages/index/all/all'
     import Mg from '@/components/pages/index/mg/mg'
     import devH5 from '@/components/pages/index/h5/h5'
@@ -112,11 +123,13 @@
         computed: {},
         methods: {
             whichSize() {
-                if (1020 < $(window).width()) {
-                    this.type = 'large'
-                } else if (750 < $(window).width() && $(window).width() < 1020) {
-                    this.type = 'middle'
-                } else if ($(window).width() < 750) {
+                if ($(window).width() / dpr > 540) {
+                    if (1020 < $(window).width()) {
+                        this.type = 'large'
+                    } else {
+                        this.type = 'middle'
+                    }
+                } else {
                     this.type = 'small'
                 }
             },
@@ -134,10 +147,61 @@
             },
             hideContent() {
                 this.isShowContent = false;
+            },
+            showMenu(){
+                // 添加禁止滚动
+                this.showStuff();
+            },
+            hideMenu(){
+                // 添加禁止滚动
+                this.hideStuff();
+            },
+            showStuff(){
+                this.scrollDisable();
+                let mobileSubMenu = $('.mobile-sub-menu');
+                let headerBar = $('.header-nav-in.small');
+                let top = document.body.scrollTop;
+                let pageIndex = $('.page-index');
+                let overLay = $('.overlay');
+
+                pageIndex.addClass('hideMenu');
+                pageIndex.addClass('showMenu');
+                overLay.addClass('enable');
+                headerBar.css('position', 'absolute');
+                headerBar.css('top', top);
+                mobileSubMenu.css('top', top);
+            },
+            hideStuff(){
+                let headerBar = $('.header-nav-in.small');
+                let pageIndex = $('.page-index');
+                let overLay = $('.overlay');
+
+                pageIndex.removeClass('showMenu');
+                // 处理完动画 移除层叠上下文
+                setTimeout(() => {
+                    pageIndex.removeClass('hideMenu');
+                    headerBar.css('position', 'fixed');
+                    headerBar.css('top', 0);
+                    this.scrollEnable();
+                }, 900);
+                overLay.removeClass('enable');
+            },
+            scrollDisable(){
+                // 移动端取消滚动条
+                document.documentElement.style.overflow = 'hidden';
+                $('body').on('touchmove', function (event) {
+                    event.preventDefault();
+                });
+            },
+            scrollEnable(){
+                // 移动端取消滚动条
+                document.documentElement.style.overflow = 'auto';
+                $('body').off('touchmove');
             }
         },
         components: {
             headerNav,
+            slideMenu,
             devFooter,
             All,
             Mg,
@@ -180,9 +244,58 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped rel="stylesheet/less">
     .page-index {
+        &.hideMenu {
+            transform: translate3d(0px, 0px, 0px);
+            transition: 0.9s cubic-bezier(.64, 0, 1, .74);
+        }
+        .overlay {
+            visibility: hidden;
+            background: rgba(0, 0, 0, .6);
+            opacity: 0;
+            position: absolute;
+            z-index: 100;
+            transition: opacity 2s cubic-bezier(.23, 1, .32, 1) 0s;
+            &.enable {
+                width: 100%;
+                height: 100%;
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+        &.showMenu {
+            transform: translate3d(550px, 0px, 0px);
+            transition: 0.9s cubic-bezier(0, 0.03, 0.13, 0.99);
+        }
+        .mobile-sub-menu {
+            font-family: Neosans;
+            font-size: 36px;
+            letter-spacing: 3px;
+            line-height: 2.5em;
+            color: #808080;
+            padding: 350px 0 0 130px;
+            margin-left: -550px;
+            height: calc(1334px - 350px);
+            width: 420px;
+            position: absolute;
+            i {
+                display: block;
+                position: absolute;
+                top: 65px;
+                left: 35px;
+                width: 36px;
+                height: 36px;
+                background: url("../slide-menu/img/x.png");
+                background-size: 100% 100%;
+            }
+        }
         .container {
-            padding-top: 115px;
             background-color: black;
+            &.large, &.middle {
+                padding-top: 115px;
+            }
+            &.small {
+                padding-top: 165px;
+            }
         }
     }
 </style>

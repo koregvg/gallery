@@ -15,11 +15,8 @@
 </script>
 
 <style lang="less">
-    html {
-        background-color: black;
-    }
-
     #app {
-
+        background-color: black;
+        overflow: hidden;
     }
 </style>

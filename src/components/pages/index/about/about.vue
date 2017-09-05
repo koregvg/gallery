@@ -193,7 +193,6 @@
                     margin-bottom: 40px;
                 }
                 .weixin {
-                    display: inline-block;
                     position: absolute;
                     top: 130px;
                     right: 900px;
@@ -203,7 +202,6 @@
                     background-size: contain;
                 }
                 .xinlang {
-                    display: inline-block;
                     position: absolute;
                     top: 115px;
                     right: 600px;
@@ -213,7 +211,6 @@
                     background-size: contain;
                 }
                 .zcool {
-                    display: inline-block;
                     position: absolute;
                     top: 135px;
                     right: 200px;
