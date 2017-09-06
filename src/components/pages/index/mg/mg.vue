@@ -44,7 +44,7 @@
             <div class="img-group">
                 <div class="img-item"
                      data-type="all"
-                     v-show="showImg('middle', index) || showAll"
+                     v-show="showImg('small', index) || showAll"
                      v-for="(value, index) in imgArr"
                      @click="goToDetail(value.gid)">
                     <img :src="chooseImg(index)">
@@ -86,7 +86,8 @@
                 },
                 maxItem: {
                     'large': 9,
-                    'middle': 9
+                    'middle': 9,
+                    'small': 9
                 },
                 showAll: false
             }
@@ -261,6 +262,15 @@
             }
         }
         .mg-middle {
+            .img-group {
+                margin: 0 auto;
+                overflow: hidden;
+                width: 1890px;
+                background-color: black;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
             .img-item {
                 position: relative;
                 display: block;

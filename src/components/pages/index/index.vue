@@ -63,8 +63,9 @@
                 >
                 </Shooting>
             </div>
-            <About v-if="selected === 'about' && !isShowContent">
-
+            <About v-if="selected === 'about' && !isShowContent"
+                   :type="type"
+            >
             </About>
             <join-us v-if="selected === 'joinus' && !isShowContent">
 
@@ -140,6 +141,12 @@
                 $(window).scrollTop(0);
                 this.hideContent();
                 this.selected = key;
+                if (this.type === 'small') {
+                    let mobileSubMenu = $('.mobile-sub-menu');
+                    let headerBar = $('.header-nav-in.small');
+                    headerBar.css('top', 0);
+                    mobileSubMenu.css('top', 0);
+                }
             },
             showContent(id) {
                 this.contentId = id;
