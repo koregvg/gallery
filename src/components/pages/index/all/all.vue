@@ -44,7 +44,7 @@
             <div class="img-group">
                 <div class="img-item"
                      data-type="all"
-                     v-show="showImg('middle', index) || showAll"
+                     v-show="showImg('small', index) || showAll"
                      v-for="(value, index) in imgArr"
                      @click="goToDetail(value.gid)">
                     <img :src="chooseImg(index)">
@@ -81,6 +81,8 @@
         },
         data () {
             return {
+                middleUrl: [],
+                smallUrl: [],
                 total: {
                     length: Object.keys(this.imgArr).length
                 },
@@ -95,10 +97,16 @@
         components: {},
         methods: {
             chooseImg(index) {
+                if (this.type === 'middle') {
+                    return this.middleUrl[index];
+                }
+                if(this.type === 'small'){
+                    return this.smallUrl[index];
+                }
                 return this.url[index];
             },
             chooseTitle(value) {
-                    return value.title;
+                return value.title;
             },
             viewMore(size) {
                 this.$emit('viewMore', true);
@@ -117,6 +125,18 @@
             }
         },
         mounted() {
+            // 中图初始化
+            let tmpUrl = this.url.concat();
+            let tmp = tmpUrl[4];
+            tmpUrl[4] = tmpUrl[6];
+            tmpUrl[6] = tmp;
+            this.middleUrl = tmpUrl;
+
+            //小图初始化
+            tmpUrl = this.url.concat();
+            let [one,three,five] = [tmpUrl.splice(0,1),tmpUrl.splice(1,1),tmpUrl.splice(4,1)];
+            this.smallUrl = one.concat(three,five,tmpUrl);
+
             $('.all.animate .img-item').each(function (index, item) {
                 let $mask = $(this).find('.mask');
                 let $title = $(this).find('.title');

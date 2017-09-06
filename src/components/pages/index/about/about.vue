@@ -19,7 +19,7 @@
                     <p>影像、动画的创意与设计。通过设计、动画、特效及</p>
                     <p>多种创新形式，将信息与内容进行动态视觉化呈现。</p>
                 </div>
-                <div class="img-block"></div>
+                <div class="img-block" v-if="type !== 'small'"></div>
             </div>
             <div class="services">
                 <div class="title">Services</div>
@@ -56,6 +56,13 @@
 
     export default {
         name: 'about',
+        props:{
+            type: {
+                type: String,
+                required: true,
+                default: ''
+            }
+        },
         data () {
             return {
                 lightNum: 2

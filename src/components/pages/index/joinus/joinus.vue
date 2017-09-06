@@ -96,9 +96,7 @@
             }
             .recruit-block {
                 min-height: 315px;
-                padding-top: 50px;
-                padding-left: 30px;
-                padding-bottom: 70px;
+                padding:50px 30px 70px 30px;
                 &:nth-child(odd) {
                     color: #fff;
                     background-color: #000;

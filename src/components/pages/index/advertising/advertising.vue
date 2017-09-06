@@ -1,6 +1,6 @@
 <template>
     <section class="page-advertising">
-        <div class="advertising advertising-large">
+        <div class="advertising advertising-large" v-show="type !== 'small'">
             <div class="img-group">
                 <div class="img-item small-col"
                      data-type="advertising"
@@ -21,6 +21,21 @@
                 </div>
             </div>
             <div class="view-more" @click="viewMore('large')" v-if="!showAll">
+                <i class="arrow"></i>
+                查看全部作品
+            </div>
+        </div>
+        <div class="advertising advertising-small" v-show="type === 'small'">
+            <div class="img-group">
+                <div class="img-item small-col"
+                     data-type="advertising"
+                     v-show="showImg('small',index) || showAll"
+                     v-for="(value, index) in imgArr"
+                     @click="goToDetail(value.gid)">
+                    <img :src="chooseImg('small',index)">
+                </div>
+            </div>
+            <div class="view-more" @click="viewMore('small')" v-if="!showAll">
                 <i class="arrow"></i>
                 查看全部作品
             </div>
@@ -56,7 +71,8 @@
                 },
                 maxItem: {
                     'large': 11,
-                    'middle': 11
+                    'middle': 11,
+                    'small': 11
                 },
                 showAll: false
             }
@@ -72,12 +88,7 @@
                         .replace(/&#39;/g, "\'");
             },
             chooseImg(size, index) {
-                if (size === 'large') {
-                    return this.url[index];
-                }
-                else if (size === 'middle') {
-                    return this.url[index];
-                }
+                return this.url[index];
             },
             viewMore(size) {
                 this.$emit('viewMore', true);
@@ -218,6 +229,17 @@
                         text-align: left;
                         font-size: 18px;
                     }
+                }
+            }
+        }
+        .advertising-small {
+            .img-item {
+                position: relative;
+                display: block;
+                margin: 15px 40px 15px 40px;
+                img {
+                    width: 100%;
+                    height: 100%;
                 }
             }
         }
