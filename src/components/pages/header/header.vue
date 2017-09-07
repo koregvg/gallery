@@ -29,7 +29,7 @@
             lightNum: {
                 type: Number,
                 required: false,
-                default: 0
+                default: 1
             },
             subChoosed: {
                 type: Number,

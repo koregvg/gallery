@@ -66,6 +66,7 @@
         },
         data () {
             return {
+                middleUrl:[],
                 total: {
                     length: Object.keys(this.imgArr).length
                 },
@@ -79,7 +80,11 @@
         components: {},
         methods: {
             chooseImg(index) {
-                return this.url[index];
+                if(this.type === 'large'){
+                    return this.url[index];
+                }else if(this.type === 'middle'){
+                    return this.middleUrl[index];
+                }
             },
             chooseTitle(value) {
                     return value.title;
@@ -101,6 +106,12 @@
             }
         },
         mounted() {
+            let tmpUrl = this.url.concat();
+            let tmp = tmpUrl[4];
+            tmpUrl[4] = tmpUrl[6];
+            tmpUrl[6] = tmp;
+            this.middleUrl = tmpUrl;
+
             $('.all .img-item').each(function (index, item) {
                 let $mask = $(this).find('.mask');
                 let $title = $(this).find('.title');

@@ -2,7 +2,6 @@
     <section class="page-index" v-if="showPage">
         <header-nav
                 @selectChange="selectChange"
-                :light-num="1"
         >
         </header-nav>
         <div class="container">
