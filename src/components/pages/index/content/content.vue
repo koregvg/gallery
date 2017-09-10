@@ -1,17 +1,18 @@
 <template>
     <section class="page-content">
         <div class="container">
-            <div class="movie">
-                <embed v-if="movieLoaded" :src="initData.movieUrl" allowFullScreen="true"
-                       quality="high" width="100%" :height="height" align="middle" allowScriptAccess="always"
-                       type="application/x-shockwave-flash">
-                </embed>
+            <div class="movie-wrapper" :class="type">
+                <div class="movie">
+                    <iframe :height=height width=100% src="http://player.youku.com/embed/XMTMzNDkzNjQ3Ng=="
+                            frameborder=0 allowfullscreen>
+                    </iframe>
+                </div>
             </div>
             <div class="title" v-text="initData.title"></div>
             <div class="line"></div>
             <div class="sub-title" v-text="initData.subTitle"></div>
             <div class="sub-content" v-if="showSubContent" v-html="htmlEntityDecode(initData.subContent)"></div>
-            <div class="detail-block">
+            <div class="detail-block" :class="type">
                 <div class="item-block" v-for="(value, index) in initData.contentArr"
                      v-show="showContent(index) || showAll">
                     <div class="item-title" v-text="value.title"></div>
@@ -39,6 +40,13 @@
 
     export default {
         name: 'content',
+        props: {
+            type: {
+                type: String,
+                required: false,
+                default: 'large'
+            }
+        },
         data () {
 
             return {
@@ -124,10 +132,18 @@
             width: 100%;
             margin: 0 auto;
             padding-top: 60px;
-            .movie {
-                width: 1860px;
-                height: 1060px;
-                margin: 0 auto;
+            .movie-wrapper {
+                &.large {
+                    margin-left:30px;
+                    margin-right:30px;
+                }
+                &.small {
+                    margin-left:40px;
+                    margin-right:40px;
+                }
+                .movie {
+                    width:100%;
+                }
             }
             .title {
                 margin-top: 60px;
@@ -155,59 +171,72 @@
             .detail-block {
                 overflow: hidden;
                 margin-top: 20px;
-                .item-block {
-                    margin-top: 140px;
-                    .item-title {
-                        text-align: center;
-                        font-size: 36px;
-                    }
-                    .item-sub-content {
-                        color: #ccc;
-                        margin-top: 80px;
-                        margin-bottom: 60px;
-                        text-align: center;
-                        font-size: 18px;
-                        line-height: 2em;
-                    }
-                    .img-group {
-                        width: 1890px;
-                        position: relative;
-                        display: block;
-                        overflow: hidden;
-                        margin: 0 auto;
-                        .img-item {
-                            margin: 15px;
-                            img {
-                                width: 100%;
-                                height: 100%;
-                            }
-                            &:nth-child(6n+1) {
-                                float: left;
-                                width: 915px;
-                            }
-                            &:nth-child(6n+2) {
-                                float: left;
-                                width: 915px;
-                            }
-                            &:nth-child(6n+3) {
-                                float: left;
-                                width: 1860px;
-                            }
-                            &:nth-child(6n+4) {
-                                float: left;
-                                width: 600px;
-                            }
-                            &:nth-child(6n+5) {
-                                float: left;
-                                width: 600px;
-                            }
-                            &:nth-child(6n+6) {
-                                float: left;
-                                width: 600px;
+                .item-title {
+                    text-align: center;
+                    font-size: 36px;
+                }
+                .item-sub-content {
+                    color: #ccc;
+                    margin-top: 80px;
+                    margin-bottom: 60px;
+                    text-align: center;
+                    font-size: 18px;
+                    line-height: 2em;
+                }
+                &.large,&.middle {
+                    .item-block {
+                        margin-top: 140px;
+                        .img-group {
+                            width: 1890px;
+                            position: relative;
+                            display: block;
+                            overflow: hidden;
+                            margin: 0 auto;
+                            .img-item {
+                                margin: 15px;
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                                &:nth-child(6n+1) {
+                                    float: left;
+                                    width: 915px;
+                                }
+                                &:nth-child(6n+2) {
+                                    float: left;
+                                    width: 915px;
+                                }
+                                &:nth-child(6n+3) {
+                                    float: left;
+                                    width: 1860px;
+                                }
+                                &:nth-child(6n+4) {
+                                    float: left;
+                                    width: 600px;
+                                }
+                                &:nth-child(6n+5) {
+                                    float: left;
+                                    width: 600px;
+                                }
+                                &:nth-child(6n+6) {
+                                    float: left;
+                                    width: 600px;
+                                }
                             }
                         }
-                    }
 
+                    }
+                }
+                &.small {
+                    .img-item {
+                        position: relative;
+                        display: block;
+                        margin: 15px 40px 15px 40px;
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
                 }
             }
         }

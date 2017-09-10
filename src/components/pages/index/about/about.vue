@@ -39,7 +39,7 @@
                     <p>QQ:358658588 412223918 615687438</p>
                 </div>
             </div>
-            <div class="following">
+            <div class="following" :class="type">
                 <div class="title">Following</div>
                 <div class="line"></div>
                 <i class="weixin"></i>
@@ -56,11 +56,11 @@
 
     export default {
         name: 'about',
-        props:{
+        props: {
             type: {
                 type: String,
                 required: true,
-                default: ''
+                default: 'large'
             }
         },
         data () {
@@ -187,7 +187,9 @@
                 padding-top: 30px;
                 padding-left: 30px;
                 color: #000;
-                margin-bottom: 50px;
+                &.large, &.middle {
+                    margin-bottom: 50px;
+                }
                 .title {
                     font-family: Neosans;
                     font-size: 60px;

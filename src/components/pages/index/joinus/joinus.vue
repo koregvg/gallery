@@ -1,6 +1,6 @@
 <template>
     <section class="page-joinus">
-        <div class="container">
+        <div class="container" :class="type">
             <div class="joinus">
                 <div class="title">Join Us</div>
                 <div class="line"></div>
@@ -29,7 +29,14 @@
     import headerNav from '@/components/pages/header/header';
 
     export default {
-        name: 'about',
+        name: 'joinus',
+        props: {
+            type: {
+                type: String,
+                required: true,
+                default: 'large'
+            }
+        },
         data () {
             return {
                 lightNum: 2,
@@ -72,6 +79,9 @@
             padding-top: 60px;
             background-color: black;
             width: 100%;
+            &.large, &.middle {
+                padding-bottom: 35px;
+            }
             .joinus {
                 position: relative;
                 padding: 0 30px 90px 30px;
@@ -96,7 +106,7 @@
             }
             .recruit-block {
                 min-height: 315px;
-                padding:50px 30px 70px 30px;
+                padding: 50px 30px 70px 30px;
                 &:nth-child(odd) {
                     color: #fff;
                     background-color: #000;
@@ -110,9 +120,6 @@
                     .line {
                         border-top: 4px solid #000;
                     }
-                }
-                &:last-child {
-                    margin-bottom: 35px;
                 }
                 .title {
                     font-family: SourceHanSansCN-Regular;

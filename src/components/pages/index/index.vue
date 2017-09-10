@@ -67,11 +67,14 @@
                    :type="type"
             >
             </About>
-            <join-us v-if="selected === 'joinus' && !isShowContent">
-
+            <join-us v-if="selected === 'joinus' && !isShowContent"
+                     :type="type"
+            >
             </join-us>
-            <my-content v-if="isShowContent"
-                        :content-id="contentId"
+            <my-content
+                    v-if="isShowContent"
+                    :type="type"
+                    :content-id="contentId"
             >
             </my-content>
         </div>
