@@ -45,6 +45,11 @@
                 type: String,
                 required: false,
                 default: 'large'
+            },
+            contentId: {
+                type: String,
+                required: true,
+                default: ''
             }
         },
         data () {
@@ -71,7 +76,7 @@
 
             axios({
                 method: "POST",
-                url: 'index.php?m=Home&c=Index&a=detail&id=' + self.$route.query.id,
+                url: 'index.php?m=Home&c=Index&a=detail&id=' + this.contentId,
             }).then(response => {
                 self.initData = response.data;
                 self.movieLoaded = true;
@@ -134,15 +139,15 @@
             padding-top: 60px;
             .movie-wrapper {
                 &.large {
-                    margin-left:30px;
-                    margin-right:30px;
+                    margin-left: 30px;
+                    margin-right: 30px;
                 }
                 &.small {
-                    margin-left:40px;
-                    margin-right:40px;
+                    margin-left: 40px;
+                    margin-right: 40px;
                 }
                 .movie {
-                    width:100%;
+                    width: 100%;
                 }
             }
             .title {
@@ -183,7 +188,7 @@
                     font-size: 18px;
                     line-height: 2em;
                 }
-                &.large,&.middle {
+                &.large, &.middle {
                     .item-block {
                         margin-top: 140px;
                         .img-group {
