@@ -235,11 +235,11 @@
                     }
                 }
                 &.small {
-                    .icon-wrapper{
+                    .icon-wrapper {
                         display: flex;
                         justify-content: space-between;
                         .weixin {
-                            left:-17px;
+                            left: -17px;
                             display: inline-block;
                             position: relative;
                             width: 120px;

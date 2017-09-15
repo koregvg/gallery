@@ -45,6 +45,11 @@
                 type: String,
                 required: false,
                 default: 'large'
+            },
+            contentId: {
+                type: String,
+                required: true,
+                default: ''
             }
         },
         data () {
