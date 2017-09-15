@@ -39,8 +39,14 @@
 
     export default {
         name: 'content',
+        props:{
+            contentId: {
+                type: String,
+                required: true,
+                default: ''
+            }
+        },
         data () {
-
             return {
                 initData: {},
                 height: 0,
@@ -63,7 +69,7 @@
 
             axios({
                 method: "POST",
-                url: 'index.php?m=Home&c=Index&a=detail&id=' + self.$route.query.id,
+                url: 'index.php?m=Home&c=Index&a=detail&id=' + this.contentId,
             }).then(response => {
                 self.initData = response.data;
                 self.movieLoaded = true;
@@ -81,10 +87,6 @@
             });
         },
         methods: {
-            selectChange(key) {
-                $(window).scrollTop(0);
-                this.$router.push({path: '/index', query: {from: 'content', to: key}});
-            },
             htmlEntityDecode(value){
                 return value
                         .replace(value ? /&(?!#?\w+;)/g : /&/g, '&amp;')
@@ -207,7 +209,6 @@
                             }
                         }
                     }
-
                 }
             }
         }
