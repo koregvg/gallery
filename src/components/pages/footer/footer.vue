@@ -57,6 +57,8 @@
         background-color: black;
         .footer-wrapper {
             &.large,&.middle{
+                display: flex;
+                justify-content: space-between;
                 z-index: 2;
                 bottom: 0;
                 min-height: 150px;
@@ -66,8 +68,6 @@
                 .footer-block {
                     width: 600px;
                     display: inline-block;
-                    float: left;
-                    margin-right: 30px;
                     &:last-child {
                         margin-right: 0;
                     }

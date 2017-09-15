@@ -21,7 +21,7 @@
                 </div>
                 <div class="img-block" v-if="type !== 'small'"></div>
             </div>
-            <div class="services">
+            <div class="services" :class="type">
                 <div class="title">Services</div>
                 <div class="line"></div>
                 <div class="content-block">
@@ -29,6 +29,7 @@
                     <p>服务范围: 互联网大会屏幕、MG动画（图形动画）</p>
                     <p>新媒体交互H5、TVC广告、电影片头等。</p>
                 </div>
+                <img class="banner" src="./img/band.png" v-if="type === 'small'">
             </div>
             <div class="contact">
                 <div class="title">Contact</div>
@@ -42,9 +43,11 @@
             <div class="following" :class="type">
                 <div class="title">Following</div>
                 <div class="line"></div>
-                <i class="weixin"></i>
-                <i class="xinlang"></i>
-                <i class="zcool"></i>
+                <div class="icon-wrapper">
+                    <i class="weixin"></i>
+                    <i class="xinlang"></i>
+                    <i class="zcool"></i>
+                </div>
             </div>
         </div>
     </section>
@@ -134,11 +137,12 @@
             }
             .services {
                 min-height: 270px;
-                background: url("./img/service.png") no-repeat #fff;
-                background-size: contain;
-                padding-top: 30px;
-                padding-bottom: 30px;
-                padding-left: 30px;
+                padding: 30px;
+                background-color: #fff;
+                &.large, &.middle {
+                    background: url("./img/service.png") no-repeat;
+                    background-size: contain;
+                }
                 .title {
                     font-family: Neosans;
                     font-size: 60px;
@@ -156,12 +160,15 @@
                     font-size: 18px;
                     line-height: 1.7em;
                 }
+                .banner {
+                    margin-top: 40px;
+                    width: 100%;
+                    height: 100%;
+                }
             }
             .contact {
                 min-height: 290px;
-                padding-top: 50px;
-                padding-bottom: 50px;
-                padding-left: 30px;
+                padding: 50px 30px;
                 color: #fff;
                 .title {
                     font-family: Neosans;
@@ -184,12 +191,8 @@
                 position: relative;
                 background-color: #fff;
                 height: 310px;
-                padding-top: 30px;
-                padding-left: 30px;
+                padding: 30px;
                 color: #000;
-                &.large, &.middle {
-                    margin-bottom: 50px;
-                }
                 .title {
                     font-family: Neosans;
                     font-size: 60px;
@@ -201,32 +204,67 @@
                     border-top: 4px solid #000;
                     margin-bottom: 40px;
                 }
-                .weixin {
-                    position: absolute;
-                    top: 130px;
-                    right: 900px;
-                    width: 120px;
-                    height: 80px;
-                    background: url("./img/weixin.png");
-                    background-size: contain;
+                &.large, &.middle {
+                    margin-bottom: 50px;
+                    .weixin {
+                        position: absolute;
+                        top: 130px;
+                        right: 900px;
+                        width: 120px;
+                        height: 80px;
+                        background: url("./img/weixin.png");
+                        background-size: contain;
+                    }
+                    .xinlang {
+                        position: absolute;
+                        top: 115px;
+                        right: 600px;
+                        width: 147px;
+                        height: 108px;
+                        background: url("./img/xinlang.png");
+                        background-size: contain;
+                    }
+                    .zcool {
+                        position: absolute;
+                        top: 135px;
+                        right: 200px;
+                        width: 216px;
+                        height: 90px;
+                        background: url("./img/zcool.png");
+                        background-size: contain;
+                    }
                 }
-                .xinlang {
-                    position: absolute;
-                    top: 115px;
-                    right: 600px;
-                    width: 147px;
-                    height: 108px;
-                    background: url("./img/xinlang.png");
-                    background-size: contain;
-                }
-                .zcool {
-                    position: absolute;
-                    top: 135px;
-                    right: 200px;
-                    width: 216px;
-                    height: 90px;
-                    background: url("./img/zcool.png");
-                    background-size: contain;
+                &.small {
+                    .icon-wrapper{
+                        display: flex;
+                        justify-content: space-between;
+                        .weixin {
+                            left:-17px;
+                            display: inline-block;
+                            position: relative;
+                            width: 120px;
+                            height: 80px;
+                            background: url("./img/weixin.png");
+                            background-size: contain;
+                        }
+                        .xinlang {
+                            display: inline-block;
+                            position: relative;
+                            top: -17px;
+                            width: 147px;
+                            height: 108px;
+                            background: url("./img/xinlang.png");
+                            background-size: contain;
+                        }
+                        .zcool {
+                            display: inline-block;
+                            position: relative;
+                            width: 216px;
+                            height: 90px;
+                            background: url("./img/zcool.png");
+                            background-size: contain;
+                        }
+                    }
                 }
             }
         }
