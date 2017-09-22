@@ -1,21 +1,14 @@
-# gallery
+# 一个SPA 前后端分离的VUE2 多端适配项目 帮朋友做的 项目持续集成中
 
 > A Vue.js project
 
-## Build Setup
+## 项目技术栈
+vue2+webpack2+thinkphp5
+只贴了前端部分代码
 
-``` bash
-# install dependencies
-npm install
+## 未来优化点
+性能
 
-# serve with hot reload at localhost:8080
-npm run dev
+## 线上地址预览
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+http://www.fiftystudio.cn/fiftystudio/#/index
