@@ -3,7 +3,7 @@
         <div class="container">
             <div class="movie-wrapper" :class="type">
                 <div class="movie">
-                    <iframe :height=height width=100% src="http://player.youku.com/embed/XMTMzNDkzNjQ3Ng=="
+                    <iframe  v-if="initData.movieUrl" :height=height width=100% :src="initData.movieUrl"
                             frameborder=0 allowfullscreen>
                     </iframe>
                 </div>
