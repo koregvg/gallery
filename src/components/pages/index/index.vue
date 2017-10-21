@@ -264,7 +264,7 @@
             opacity: 0;
             position: absolute;
             z-index: 100;
-            transition: opacity 2s cubic-bezier(.23, 1, .32, 1) 0s;
+            transition: opacity 1s cubic-bezier(.23, 1, .32, 1) 0s;
             &.enable {
                 width: 100%;
                 height: 100%;
