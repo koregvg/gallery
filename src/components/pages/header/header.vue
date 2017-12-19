@@ -3,6 +3,7 @@
         <div class="header-nav-in" :class="type">
             <div v-if="type === 'large' || type === 'middle'">
                 <div class="header-sub-container">
+                    <i class="logo" @click="reload()"></i>
                     <ul class="main">
                         <li @click="choose('index')" :class="{'light-up': choosed === 1}">Work</li>
                         <li @click="choose('about')" :class="{'light-up': choosed === 2}">About</li>
@@ -107,6 +108,9 @@
                 let $el = $(event.target);
                 $el.find('.en').fadeIn(250);
                 $el.find('.cn').fadeOut(250);
+            },
+            reload(){
+                location.reload();
             }
         },
         components: {},
@@ -130,8 +134,18 @@
                 width: 100%;
                 position: fixed;
                 .header-sub-container {
+                    position: relative;
                     height: 100px;
                     padding: 30px 30px 0 30px;
+                    .logo {
+                        cursor: pointer;
+                        position: absolute;
+                        width: 210px;
+                        height: 52px;
+                        background: url("./img/logo.jpg");
+                        background-size: contain;
+                        right: 30px;
+                    }
                     ul.main {
                         width: 100%;
                         height: 48px;

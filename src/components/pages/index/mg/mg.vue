@@ -8,10 +8,10 @@
                      v-for="(value, index) in imgArr"
                      @click="goToDetail(value.gid)">
                     <img :src="chooseImg(index)">
-                    <div class="mask">
+                    <div class="mask" v-if="type !== 'small'">
                         <div class="title" v-text="value.title"></div>
                         <div class="line"></div>
-                        <div class="sub-title">APP宣传片</div>
+                        <div class="sub-title"></div>
                     </div>
                 </div>
             </div>
@@ -28,10 +28,10 @@
                      v-for="(value, index) in imgArr"
                      @click="goToDetail(value.gid)">
                     <img :src="chooseImg(index)">
-                    <div class="mask">
+                    <div class="mask" v-if="type !== 'small'">
                         <div class="title" v-text="value.title"></div>
                         <div class="line"></div>
-                        <div class="sub-title">APP宣传片</div>
+                        <div class="sub-title"></div>
                     </div>
                 </div>
             </div>

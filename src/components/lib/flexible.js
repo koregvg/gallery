@@ -75,6 +75,10 @@ export default (win, lib) => {
             width = 960 * dpr * (width / dpr) / 375;
         }
 
+        // if (width / dpr > 540) {
+        //     width = 540 * dpr;
+        // }
+
         var rem = width / 10;
         docEl.style.fontSize = rem + 'px';
         flexible.rem = win.rem = rem;
@@ -120,7 +124,6 @@ export default (win, lib) => {
         }
         return val;
     }
-
 };
 
 /* eslint-enable */

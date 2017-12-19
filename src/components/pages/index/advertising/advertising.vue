@@ -8,10 +8,10 @@
                      v-for="(value, index) in imgArr">
                     <div class="img-wrap" @click="goToDetail(value.gid)">
                         <img :src="chooseImg('large',index)">
-                        <div class="mask">
+                        <div class="mask" v-if="type !== 'small'">
                             <div class="title" v-text="value.title"></div>
                             <div class="line"></div>
-                            <div class="sub-title">APP宣传片</div>
+                            <div class="sub-title"></div>
                         </div>
                     </div>
                     <div class="sub-content">
@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="view-more" @click="viewMore('large')" v-if="!showAll">
+            <div class="view-more" @click="viewMore('large')" v-if="!showAll && imgArr.length">
                 <i class="arrow"></i>
                 查看全部作品
             </div>
@@ -35,7 +35,7 @@
                     <img :src="chooseImg('small',index)">
                 </div>
             </div>
-            <div class="view-more" @click="viewMore('small')" v-if="!showAll">
+            <div class="view-more" @click="viewMore('small')" v-if="!showAll && imgArr.length">
                 <i class="arrow"></i>
                 查看全部作品
             </div>
