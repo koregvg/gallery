@@ -19,7 +19,7 @@
                     <p>影像、动画的创意与设计。通过设计、动画、特效及</p>
                     <p>多种创新形式，将信息与内容进行动态视觉化呈现。</p>
                 </div>
-                <div class="img-block" v-if="type !== 'small'"></div>
+                <!--<div class="img-block" v-if="type !== 'small'"></div>-->
             </div>
             <div class="services" :class="type">
                 <div class="title">Services</div>
@@ -140,7 +140,7 @@
                 padding: 30px;
                 background-color: #fff;
                 &.large, &.middle {
-                    background: url("./img/service.png") no-repeat;
+                    background: url("./img/service.png") #FFF no-repeat;
                     background-size: contain;
                 }
                 .title {
